@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>product fetching using js array of object</title>
+
+<style>
+
+#notification{
+    
+width: 320px;
+margin: auto;
+
+height: 50px;
+background: red;
+padding: 5px;
+border-radius: 20px;
+top: -1000px;
+position: fixed;
+transition: all 0.8s;
+box-shadow: inset 0 0 5px black;
+}
+#notification p, #add-to-cart-notification p{
+color: white;
+text-align: center;
+}
+
+#add-to-cart-notification{
+width: 320px;
+margin: auto;
+height: 50px;
+background: green;
+padding: 5px;
+border-radius: 20px;
+top: -1000px;
+position: fixed;
+transition: all 0.8s;
+box-shadow: inset 0 0 5px black;
+}
+
+.myclass{
+width: 100%;
+background-color: paleTurquoise;
+border: 2px solid red;
+
+}
+
+.ptag{
+width: 75%;
+margin: auto;
+height: 100px;
+overflow: scroll;
+padding: 10px;
+border-radius: 15px;
+box-shadow: inset 0 0 5px black;
+}
+
+.imageBox{
+width: 300px;
+height: 300px;
+display: flex;
+overflow-x: scroll;
+scroll-snap-type: x mandatory;
+margin-bottom: 20px;
+}
+.imageBox div{
+min-width: 300px;
+display: flex;
+justify-content: center;
+align-items: center;
+scroll-snap-align: center;
+}
+
+.imgg{
+width: 300px;
+height: 300px;
+}
+
+.pricecartdiv{
+background-color: cadetblue;
+margin-bottom: 20px;
+}
+.pricecartdiv p, .pricecartdiv button{
+display: inline-block;
+}
+.pricecartdiv p{
+margin-right: 150px;
+margin-left: 30px;
+color: chocolate;
+font-size: 20px;
+text-shadow: 2px 2px 5px black;
+}
+
+.pricecartdiv button{
+cursor: pointer;
+border: none;
+background-color: yellow;
+color: crimson;
+padding: 7px;
+border-radius: 10px;
+box-shadow: inset 0 0 10px black;
+}
+
+#mainShoppingCartDiv{
+width: 75%;
+margin: auto;
+}
+
+#shoppingCart{
+border: 1px solid blue;
+margin-bottom: 30px;
+border-radius: 10px;
+}
+
+.ddivClass{
+background: yellow;
+}
+
+/*
+#showYourCartBtn{
+width: 300px;
+margin: auto;
+position: fixed;
+} */
+
+#showYourCartBtn button{
+cursor: pointer;
+border: none;
+background-color: cyan;
+padding: 5px;
+color: black;
+border-radius: 10px;
+}
+
+#shoppingCart .totalDamDivClass{
+color: green;
+font-size: 20px;
+margin-bottom: 20px;
+}
+
+#shoppingCart .anchorTagBtn{
+cursor: pointer;
+background-color: coral;
+
+color: white;
+border-radius: 10px;
+text-decoration: none;
+}
+
+#shoppingCart .deleteEntireCartBtn{
+cursor: pointer;
+background-color: red;
+
+color: white;
+border-radius: 10px;
+border: none;
+float: right;
+}
+
+@media screen and (max-width: 600px) {
+    .myclass{
+    width: 100%;
+    }
+    #mainShoppingCartDiv{
+    width: 70%; margin: auto;
+    }
+    .imageBox{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    }
+    .imageBox div{
+    width: 250px; height: 250x;
+    }
+}
+
+    @media screen and (min-width: 601px) {
+    .myclass{
+    width: 600px;
+    margin: auto;
+    }
+    #mainShoppingCartDiv{
+    width: 500px; margin: auto;
+    }
+    .imageBox{
+    width: 600px; 
+    display: flex;
+    overflow: scroll;
+    }
+    .imageBox div{
+    width: 250px; height: 250x;
+    }
+}
+
+</style>
+
+
+</head>
+<body>
+<!-- create a div for showing delete notification -->
+<div id="notification">
+<p>your entire cart is deleted.</p>
+</div>
+<!-- create a div for showing item added to cart notification -->
+<div id="add-to-cart-notification">
+<p>item added to cart</p>
+</div>
+
+<h4>first portion where we will show all products to add to your cart</h4>
+<hr>
+<div id="mainShoppingCartDiv">
+<div id="shoppingCart"></div>
+<div id="showYourCartBtn">
+<button id="yourCart"> show your cart </button>
+</div>
+</div>
+<hr>
+
+<div id="mainProductListDiv"></div>
+
+<script>
+
+var arrobject = [
+{id: 1,
+name: "singara",
+price: 7,
+detail: "this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.  this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.",
+src: "singara1.jpg",
+src1: "singara2.jpg",
+src2: "singara3.jpg"
+},
+
+{id: 2, name: "cake", price: 200, detail: "this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.  this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.",
+src: "cake1.jpg",
+src1: "cake2.jpg",
+src2: "cake3.jpg"
+},
+
+{id: 5, name: "biriyani", price: 106, detail: "this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.  this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.",
+src: "biriyani1.jpg",
+src1: "biriyani2.jpg",
+src2: "biriyani3.jpg"
+},
+
+{id: 7, name: "noodles", price: 25, detail: "this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.  this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.",
+src: "noodles1.jpg",
+src1: "noodles2.jpg",
+src2: "noodles3.jpg"
+},
+
+{id: 9, name: "ear ring", price: 7, detail: "this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.  this is the product, we make it at home with quality senitization and quality care. we have en experienced team of cook, we hope you'll be satisfied with purchase.",
+src: "ear ring1.jpg",
+src1: "ear ring2.jpg",
+src2: "ear ring3.jpg"
+}
+];
+
+//for(let item of arrobject){
+//console.log(item.id, item.name, item.price, item.detail);};
+
+//display all products
+//check at first that whether the user visits the page first time or not if it's the first time then set localStorage item
+
+if(!localStorage.getItem("item9")){
+const arry = [];
+const bu = JSON.stringify(arry);
+localStorage.setItem("item9", bu);
+}
+
+
+var g = localStorage.getItem("item9");
+//var t = JSON.parse(g);
+var mainProductListDiv = document.getElementById("mainProductListDiv");
+
+if(g){
+var t = JSON.parse(g);
+//t.push({id: 2, name: "hello", price: 89});
+var div = document.createElement("div");
+div.className = "myclass";
+mainProductListDiv.appendChild(div);
+
+for(let item of arrobject){
+//console.log(item.id, item.name, item.price);
+
+//show images
+//create a div for showing and styling images only
+const imgBox = document.createElement("div");
+div.appendChild(imgBox);
+imgBox.className = "imageBox";
+//imgBox.style.top = "10px";
+
+// ########### create 3-4 divs in the div imgBox and in them create img tags to show images    ########
+
+var firstimgbox = document.createElement("div");
+imgBox.appendChild(firstimgbox);
+var img = document.createElement("img");
+img.className = "imgg";
+img.src = item.src;
+firstimgbox.appendChild(img);
+
+var secondimgbox = document.createElement("div");
+imgBox.appendChild(secondimgbox);
+var img1 = document.createElement("img");
+img1.className = "imgg";
+img1.src = item.src1;
+secondimgbox.appendChild(img1);
+
+var thirdimgbox = document.createElement("div");
+imgBox.appendChild(thirdimgbox);
+var img2 = document.createElement("img");
+img2.className = "imgg";
+img2.src = item.src2;
+thirdimgbox.appendChild(img2);
+
+//show product detail
+var pptag = document.createElement("p");
+pptag.textContent = `${item.detail} `;
+pptag.className = "ptag";
+div.appendChild(pptag);
+
+//show product name
+var htag = document.createElement("h3");
+htag.textContent = `${item.name} `;
+htag.style.color = "red";
+htag.style.textAlign = "center";
+htag.style.textShadow = "2px 2px 4px black";
+div.appendChild(htag);
+
+//show price
+//to contain the price and add-to-cart button in a same div create a div
+const priceCartBtnDiv = document.createElement("div");
+div.appendChild(priceCartBtnDiv);
+priceCartBtnDiv.className = "pricecartdiv";
+//priceCartBtnDiv.style.backgroundColor = "pink";
+
+var ptag = document.createElement("p");
+ptag.textContent = item.price;
+ptag.style.color = "red";
+priceCartBtnDiv.appendChild(ptag);
+
+const buton = document.createElement("button");
+priceCartBtnDiv.appendChild(buton);
+buton.textContent = `add to cart`;
+buton.addEventListener("click", () => {
+
+t.push({id: item.id, name: item.name, price: item.price});
+//console.log(t);
+var str = JSON.stringify(t);
+localStorage.setItem("item9", str);
+
+//for notification to show ITEM ADDED TO YOUR CART
+itemAddedNotification();
+
+});
+
+//div.appendChild(buton);
+
+}
+//append the div 
+//cartDiv.appendChild(div);
+
+}
+
+//item added to cart notification function()
+
+function itemAddedNotification(){
+var addedToCartNotifi = document.getElementById("add-to-cart-notification");
+addedToCartNotifi.style.top = "20px";
+setTimeout( () => {
+addedToCartNotifi.style.top = "-1000px";
+}, 2000);
+}
+
+
+//  ####### CART SYSTEM  ##########
+
+var shoppingCart = document.getElementById("shoppingCart");
+var yourCart = document.getElementById("yourCart");
+yourCart.addEventListener("click", () => {
+// length should be < 3 otherwise it would throw error.
+if(localStorage.getItem("item9").length < 3){
+shoppingCart.textContent = "your cart is empty";
+}else if(localStorage.getItem("item9")){
+//just to modify the textContent
+shoppingCart.textContent = "";
+
+var sonStr = localStorage.getItem("item9");
+var nayaArr = JSON.parse(sonStr);
+for(let keys of nayaArr){
+//create a div
+var ddiv = document.createElement("div");
+ddiv.className = "ddivClass";
+
+var ddivP = document.createElement("p");
+ddivP.textContent = `${keys.name} :         ${keys.price}`;
+
+
+ddiv.appendChild(ddivP);
+shoppingCart.appendChild(ddiv);
+
+}
+
+
+// show total price
+
+var totalPrice = 0;
+for(var i = 0; i < nayaArr.length; i++){
+totalPrice += nayaArr[i].price;
+}
+// create a div to show the total price into the main div which is shopping cart div here in this case
+const totalDamDiv = document.createElement("div");
+shoppingCart.appendChild(totalDamDiv);
+totalDamDiv.className = "totalDamDivClass";
+totalDamDiv.textContent = `total price :  ${totalPrice}`;
+
+//make an anchor tag to go to other page
+
+var anchorTag = document.createElement("a");
+anchorTag.textContent = "order now";
+anchorTag.href = "orderpage.php";
+anchorTag.className = "anchorTagBtn";
+shoppingCart.appendChild(anchorTag);
+
+
+//remove cart function
+
+var delbt = document.createElement("button");
+delbt.textContent = `delete entire cart`;
+delbt.className = "deleteEntireCartBtn";
+delbt.addEventListener("click", () => {
+//remove whole cart
+shoppingCart.remove();
+
+//create notification popup for notifying the user
+removeNotification();
+
+//empty the localStorage or update the localStorage
+var arry = [];
+var bu = JSON.stringify(arry);
+localStorage.setItem("item9", bu);
+
+//refresh the page otherwise it throws an error but refresh/reload after a specific time as delete entire cart notification will also work 
+//window.location.reload();
+
+setTimeout( () => {
+window.location.reload();
+}, 3000);
+
+
+});
+
+
+shoppingCart.appendChild(delbt);
+}
+
+else{
+shoppingCart.textContent = "your cart is empty the last";
+}
+
+});
+
+
+//defining the removeNotification() function
+function removeNotification() {
+var notification = document.getElementById("notification");
+notification.style.top = "20px";
+setTimeout( () => {
+notification.style.top = "-1000px";
+}, 2000);
+}
+
+
+</script>
+</body>
+</html>
